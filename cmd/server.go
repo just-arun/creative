@@ -16,10 +16,7 @@ limitations under the License.
 package cmd
 
 import (
-	"fmt"
-
-	conf "github.com/just-arun/creative/config"
-	"github.com/just-arun/creative/models"
+	"github.com/just-arun/creative/api"
 	"github.com/spf13/cobra"
 )
 
@@ -34,13 +31,12 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		environment := args[0]
-		envFileName := ".env." + environment
-		var config models.Config
-		conf.GetEnv(envFileName, "yml", ".", &config)
-		
-		fmt.Println(config.App.Server.Port)
-		fmt.Println("server called")
+		env := args[0]
+		port := args[1]
+		if len(args) != 2 {
+			panic("not enough arguments")
+		}
+		api.Api(port, env)
 	},
 }
 

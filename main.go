@@ -15,7 +15,14 @@ limitations under the License.
 */
 package main
 
-import "github.com/just-arun/creative/cmd"
+import (
+	"github.com/just-arun/creative/cmd"
+	"github.com/just-arun/creative/helper"
+)
+
+func Init() {
+	helper.Init()
+}
 
 func main() {
 	cmd.Execute()
