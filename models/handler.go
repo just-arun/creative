@@ -7,6 +7,7 @@ import (
 
 type HandlerCtx struct {
 	DB            *gorm.DB
+	AnotherDB     *gorm.DB
 	UserSessionDB *redis.Client
 	OtpSessionDB  *redis.Client
 }

@@ -36,15 +36,15 @@ func (w *response) Success(status int, data interface{}) {
 type errorResponse struct {
 	Status int `json:"status"`
 	Error  struct {
-		Message error
+		Message string `json:"message"`
 	} `json:"error"`
 }
 
 func (w *response) Error(status int, err error) {
 	payload := &errorResponse{
 		Status: status,
-		Error: struct{ Message error }{
-			Message: err,
+		Error: struct{Message string "json:\"message\""}{
+			Message: err.Error(),
 		},
 	}
 	bin, err := json.Marshal(payload)

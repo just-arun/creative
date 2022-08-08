@@ -2,6 +2,7 @@ package helper
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -45,17 +46,16 @@ func (r *request) B(body interface{}) error {
 	if err != nil {
 		return err
 	}
-	// fmt.Println(body)
-	// err = Validate.Struct(body)
-	// if err != nil {
-	// 	if _, ok := err.(*validator.InvalidValidationError); ok {
-	// 		return err
-	// 	}
-	// 	var errStr string
-	// 	for _, err := range err.(validator.ValidationErrors) {
-	// 		errStr += err.Error() + ", "
-	// 	}
-	// 	return errors.New(errStr)
-	// }
+	err = Validate.Struct(body)
+	if err != nil {
+		if _, ok := err.(*validator.InvalidValidationError); ok {
+			return err
+		}
+		var errStr string
+		for _, err := range err.(validator.ValidationErrors) {
+			errStr += err.Error() + ", "
+		}
+		return errors.New(errStr)
+	}
 	return nil
 }

@@ -6,3 +6,5 @@ build:
 	go build -o bin/creative ./main.go
 clean:
 	rm -rf bin
+migratedev:
+	go run main.go migrate dev

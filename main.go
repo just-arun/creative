@@ -20,7 +20,7 @@ import (
 	"github.com/just-arun/creative/helper"
 )
 
-func Init() {
+func init() {
 	helper.Init()
 }
 
