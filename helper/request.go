@@ -25,7 +25,7 @@ func Req(w *http.Request) *request {
 
 // request param
 // this will return null is no param exist
-func (r *request) P(name string) (result interface{}) {
+func (r *request) P(name string) (result string) {
 	result = chi.URLParam(r.Request, name)
 	return
 }
