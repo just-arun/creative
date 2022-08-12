@@ -7,6 +7,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-playground/validator/v10"
+	"github.com/just-arun/creative/models"
 )
 
 var Validate *validator.Validate
@@ -58,4 +59,13 @@ func (r *request) B(body interface{}) error {
 		return errors.New(errStr)
 	}
 	return nil
+}
+
+func (r *request) MetaData() (*models.MetaData, error) {
+	ctx := r.Context()
+	sessionUser, ok := ctx.Value(models.RequestDataMetaData).(*models.MetaData)
+	if !ok {
+		return nil, errors.New("invalid meta data")
+	}
+	return sessionUser, nil
 }

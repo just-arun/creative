@@ -1,6 +1,7 @@
 package hello
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -22,9 +23,24 @@ func Route(ctx *models.HandlerCtx) func(c chi.Router) {
 
 func create(ctx *models.HandlerCtx) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		metaData, err := helper.Req(r).MetaData()
+		if err != nil {
+			helper.Res(w).Error(http.StatusBadRequest, err)
+			return
+		}
+
+		fmt.Println(metaData)
+
+		if metaData.Mode == models.MetaDataModeWeb {
+			fmt.Println("request from web")	
+		}
+		if metaData.Mode == models.MetaDataModeApp {
+			fmt.Println("request from app")	
+		}
+
 		var body createHelloBody
 
-		err := helper.Req(r).B(&body)
+		err = helper.Req(r).B(&body)
 		if err != nil {
 			helper.Res(w).Error(http.StatusBadRequest, err)
 			return

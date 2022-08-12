@@ -10,4 +10,5 @@ type HandlerCtx struct {
 	AnotherDB     *gorm.DB
 	UserSessionDB *redis.Client
 	OtpSessionDB  *redis.Client
+	
 }
